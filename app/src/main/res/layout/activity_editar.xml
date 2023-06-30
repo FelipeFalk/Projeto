@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.produto.ActivityEditar">
+
+    <TextView
+        android:id="@+id/textoEntrada"
+        android:text="Editar Produto"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:textSize="70px"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="36dp"
+
+        />
+
+    <EditText
+        android:id="@+id/textDesc"
+        android:layout_width="264dp"
+        android:layout_height="58dp"
+        android:hint="Descrição"
+        android:background="#c2c2c2"
+        android:gravity="center|left"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoEntrada"
+        android:layout_marginTop="64dp"
+
+        />
+
+    <EditText
+        android:id="@+id/textQuantidade"
+        android:layout_width="264dp"
+        android:layout_height="58dp"
+        android:hint="Quantidade"
+        android:background="#c2c2c2"
+        android:gravity="center|left"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDesc"
+        android:layout_marginTop="24dp"
+
+        />
+
+    <EditText
+        android:id="@+id/textPreco"
+        android:layout_width="264dp"
+        android:layout_height="58dp"
+        android:hint="Preço"
+        android:background="#c2c2c2"
+        android:gravity="center|left"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textQuantidade"
+        android:layout_marginTop="24dp"
+
+        />
+
+    <Button
+        android:id="@+id/botaoSalvarEditar"
+        android:text="Salvar"
+        android:layout_width="150dp"
+        android:layout_height="56dp"
+        app:layout_constraintTop_toBottomOf="@id/textPreco"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="36dp"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:backgroundTint="#53b6cf"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/botaoExcluirEditar"
+        android:text="Excluir"
+        android:layout_width="150dp"
+        android:layout_height="56dp"
+        app:layout_constraintTop_toBottomOf="@id/textPreco"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="36dp"
+        android:layout_marginTop="36dp"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:backgroundTint="#f03e47"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/botaoVoltarEditar"
+        android:text="Voltar"
+        android:layout_width="150dp"
+        android:layout_height="56dp"
+        app:layout_constraintTop_toBottomOf="@id/botaoSalvarEditar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="36dp"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:backgroundTint="#53b6cf"
+        android:textAllCaps="false"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
