@@ -3,8 +3,9 @@ package com.example.produto;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,12 +14,17 @@ import android.widget.ListView;
 
 import com.example.projeto.R;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
-
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 
 public class ActivityProdutos extends AppCompatActivity {
 
@@ -27,19 +33,37 @@ public class ActivityProdutos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produtos);
 
+    }
+
+    @Override
+
+    protected void onResume(){
+        super.onResume();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            // Desabilita a restrição de tráfego não seguro para localhost
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll()
+                    .build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         criaLista();
         sair();
 
     }
 
     private void criaLista(){
-        List<Produtos> produtos = geraLista(); //MUDAR PARA UMA LÓGICA QUE RECEBE OS PRODUTOS DO BANCO
-
-        ArrayAdapter<Produtos> adapter = new ArrayAdapter<Produtos>(this, android.R.layout.simple_list_item_1, produtos);
+        List<Produtos> produtos = geraLista();
 
         ListView listaDeProdutos = findViewById(R.id.listaProdutos);
 
-        listaDeProdutos.setAdapter(adapter);
+        if(produtos!=null){
+            ArrayAdapter<Produtos> adapter = new ArrayAdapter<Produtos>(this, android.R.layout.simple_list_item_1, produtos);
+
+
+            listaDeProdutos.setAdapter(adapter);
+        }
 
         listaDeProdutos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,47 +100,34 @@ public class ActivityProdutos extends AppCompatActivity {
 
     private List geraLista(){
 
-        String json = "[\n" +
-                "    {\n" +
-                "        \"IdProduto\": 1,\n" +
-                "        \"GTIN\": 7891234567890,\n" +
-                "        \"Nome\": \"Arroz Parboilizado 5kg\",\n" +
-                "        \"Quantidade\": 50,\n" +
-                "        \"Preco\": 29.9\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"IdProduto\": 2,\n" +
-                "        \"GTIN\": 7894561237890,\n" +
-                "        \"Nome\": \"Feijão Carioca 1kg\",\n" +
-                "        \"Quantidade\": 100,\n" +
-                "        \"Preco\": 7.99\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"IdProduto\": 3,\n" +
-                "        \"GTIN\": 7897894567890,\n" +
-                "        \"Nome\": \"Açúcar Cristal 2kg\",\n" +
-                "        \"Quantidade\": 80,\n" +
-                "        \"Preco\": 6.5\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"IdProduto\": 4,\n" +
-                "        \"GTIN\": 7899876543210,\n" +
-                "        \"Nome\": \"Óleo de Soja 900ml\",\n" +
-                "        \"Quantidade\": 120,\n" +
-                "        \"Preco\": 4.99\n" +
-                "    }\n" +
-                "]";
+        List<Produtos>  listaProdutos = null;
 
-        //BufferedReader br = new BufferedReader(new FileReader("caminho/do/json"));
+        try{
 
-        Gson gson = new Gson();
-        Type tipoLista = new TypeToken<List<Produtos>>() {}.getType();
-        List<Produtos> listaProdutos = gson.fromJson(json, tipoLista);
+            URL url = new URL("http://192.168.0.22:8080/produtos");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
 
-        String j = gson.toJson(listaProdutos);
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while((inputLine = in.readLine()) != null){
+                response.append(inputLine);
+            }
+            in.close();
 
-        Log.d("Falk Json", j);
+            Gson gson = new Gson();
+            Type tipoLista = new TypeToken<List<Produtos>>() {}.getType();
+            listaProdutos = gson.fromJson(response.toString(), tipoLista);
 
-        return listaProdutos;
+            con.disconnect();
+
+            return listaProdutos;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

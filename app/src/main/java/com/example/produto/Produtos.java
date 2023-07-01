@@ -26,11 +26,11 @@ public class Produtos {
         this.GTIN = GTIN;
     }
 
-    public void setDescricao(String descricao) {
-        this.Nome = descricao;
+    public void setNome(String nome) {
+        this.Nome = nome;
     }
 
-    public String getDescricao() {
+    public String getNome() {
         return Nome;
     }
 

@@ -16,11 +16,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        botaoAdmin();
+        botaoEntrar();
     }
 
-    private void botaoAdmin(){
-        Button botao = findViewById(R.id.botaoAdministrar);
+    private void botaoEntrar(){
+        Button botao = findViewById(R.id.botaoEntrar);
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
