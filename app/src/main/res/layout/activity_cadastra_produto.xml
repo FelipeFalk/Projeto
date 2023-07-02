@@ -6,19 +6,22 @@
     android:layout_height="match_parent"
     tools:context="com.example.produto.ActivityCadastraProduto">
 
-    <TextView
-        android:id="@+id/textoEntrada"
-        android:text="Cadastrar Produto"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:gravity="center"
-        android:textSize="70px"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="36dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        tools:ignore="MissingConstraints">
 
-        />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarCadastrar"
+        android:layout_width="match_parent"
+        android:layout_height="64sp"
+        android:background="@color/botaoPadrao"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="Cadastrar Produto"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <EditText
         android:id="@+id/textDesc"
@@ -28,11 +31,12 @@
         android:hint="Descrição"
         android:background="@drawable/rounded_edittext"
         android:textColor="@android:color/black"
+        android:textColorHint="#99000000"
         android:gravity="center|left"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoEntrada"
-        android:layout_marginTop="64dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="128sp"
 
         />
 
@@ -44,6 +48,7 @@
         android:paddingLeft="12dp"
         android:background="@drawable/rounded_edittext"
         android:textColor="@android:color/black"
+        android:textColorHint="#99000000"
         android:gravity="center|left"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -60,6 +65,7 @@
         android:hint="Preço"
         android:background="@drawable/rounded_edittext"
         android:textColor="@android:color/black"
+        android:textColorHint="#99000000"
         android:gravity="center|left"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -76,6 +82,7 @@
         android:hint="GTIN"
         android:background="@drawable/rounded_edittext"
         android:textColor="@android:color/black"
+        android:textColorHint="#99000000"
         android:gravity="center|left"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -91,26 +98,13 @@
         android:layout_height="56dp"
         app:layout_constraintTop_toBottomOf="@id/textGtin"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="32dp"
-        android:textSize="16sp"
-        android:textColor="#ffffff"
-        android:backgroundTint="@color/botaoPadrao"
-        android:textAllCaps="false"
-        />
-    <Button
-        android:id="@+id/botaoVoltarCadastrar"
-        android:text="Voltar"
-        android:layout_width="150dp"
-        android:layout_height="56dp"
-        app:layout_constraintTop_toBottomOf="@id/textGtin"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="24dp"
-        android:layout_marginRight="32dp"
         android:textSize="16sp"
         android:textColor="#ffffff"
         android:backgroundTint="@color/botaoPadrao"
         android:textAllCaps="false"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

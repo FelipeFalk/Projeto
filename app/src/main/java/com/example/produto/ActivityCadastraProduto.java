@@ -1,6 +1,8 @@
 package com.example.produto;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +29,13 @@ public class ActivityCadastraProduto extends AppCompatActivity {
         setContentView(R.layout.activity_cadastra_produto);
 
         botaoCadastrar();
-        botaoVoltarCadastrarProduto();
+
+        Toolbar toolbar = findViewById(R.id.toolbarCadastrar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void botaoCadastrar(){
@@ -53,21 +61,11 @@ public class ActivityCadastraProduto extends AppCompatActivity {
         });
     }
 
-    private void botaoVoltarCadastrarProduto(){
-        Button botao = findViewById(R.id.botaoVoltarCadastrar);
-        botao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-    }
-
     private void cadastraProduto(Produtos produtoNovo){
         Gson gson = new GsonBuilder().create();
         String json = gson.toJson(produtoNovo);
 
-        String urlString = "http://192.168.0.22:8080/produtos";
+        String urlString = getResources().getString(R.string.url_base)+"/produtos";
         String requestBody = json;
 
         try{

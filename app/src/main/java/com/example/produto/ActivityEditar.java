@@ -36,7 +36,6 @@ public class ActivityEditar extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            Log.d("Falk", "AAAAAAAAAAAAAAAAAAAAAAA");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -51,17 +50,6 @@ public class ActivityEditar extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("Falk", "AAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBB");
-        switch (item.getItemId()) {
-
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     private void gerenciaEdicao(Produtos produtoSelecionado){
 
             EditText textDesc = findViewById(R.id.textDesc);
@@ -108,7 +96,7 @@ public class ActivityEditar extends AppCompatActivity {
         Gson gson = new GsonBuilder().create();
         String json = gson.toJson(produtoSelecionado);
 
-        String urlString = "http://192.168.0.22:8080/produtos/"+produtoSelecionado.getId();
+        String urlString = getResources().getString(R.string.url_base)+"/produtos/"+produtoSelecionado.getId();
         String requestBody = json;
 
         try{
@@ -138,7 +126,7 @@ public class ActivityEditar extends AppCompatActivity {
     }
 
     private void deletarProduto(int id){
-        String urlString = "http://192.168.0.22:8080/produtos/"+id;
+        String urlString = getResources().getString(R.string.url_base)+"/produtos/"+id;
 
         try{
             URL url = new URL(urlString);
@@ -166,7 +154,7 @@ public class ActivityEditar extends AppCompatActivity {
         Produtos produto = new Produtos();
 
         try{
-            URL url = new URL("http://192.168.0.22:8080/produtos/"+id);
+            URL url = new URL(getResources().getString(R.string.url_base)+"/produtos/"+id);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
 

@@ -7,23 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.produto.ActivityEditar">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayoutEditar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        tools:ignore="MissingConstraints">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarEditar"
-            android:layout_width="match_parent"
-            android:layout_height="64sp"
-            android:background="@color/botaoPadrao"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="Editar Produto"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -32,6 +15,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                tools:ignore="MissingConstraints">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbarEditar"
+                    android:layout_width="match_parent"
+                    android:layout_height="64sp"
+                    android:background="@color/botaoPadrao"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:title="Editar Produto"/>
+
+            </com.google.android.material.appbar.AppBarLayout>
 
             <EditText
                 android:id="@+id/textDesc"
@@ -41,12 +40,23 @@
                 android:hint="Descrição"
                 android:background="@drawable/rounded_edittext"
                 android:textColor="@android:color/black"
+                android:textColorHint="#99000000"
                 android:gravity="center|left"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="128sp"
 
+                />
+
+            <TextView
+                android:id="@+id/textViewDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descrição"
+                app:layout_constraintBottom_toTopOf="@id/textDesc"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="80sp"
                 />
 
             <EditText
@@ -57,12 +67,22 @@
                 android:hint="Quantidade"
                 android:background="@drawable/rounded_edittext"
                 android:textColor="@android:color/black"
+                android:textColorHint="#99000000"
                 android:gravity="center|left"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textDesc"
                 android:layout_marginTop="24sp"
+                />
 
+            <TextView
+                android:id="@+id/textViewQuantidade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantidade"
+                app:layout_constraintBottom_toTopOf="@id/textQuantidade"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="80sp"
                 />
 
             <EditText
@@ -73,12 +93,22 @@
                 android:hint="Preço"
                 android:background="@drawable/rounded_edittext"
                 android:textColor="@android:color/black"
+                android:textColorHint="#99000000"
                 android:gravity="center|left"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textQuantidade"
                 android:layout_marginTop="24sp"
+                />
 
+            <TextView
+                android:id="@+id/textViewPreco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preço"
+                app:layout_constraintBottom_toTopOf="@id/textPreco"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="80sp"
                 />
 
             <EditText
@@ -89,12 +119,22 @@
                 android:hint="GTIN"
                 android:background="@drawable/rounded_edittext"
                 android:textColor="@android:color/black"
+                android:textColorHint="#99000000"
                 android:gravity="center|left"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textPreco"
                 android:layout_marginTop="24sp"
+                />
 
+            <TextView
+                android:id="@+id/textGTIN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GTIN"
+                app:layout_constraintBottom_toTopOf="@id/textGtin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="80sp"
                 />
 
             <Button

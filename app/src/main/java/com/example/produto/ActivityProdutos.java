@@ -100,7 +100,8 @@ public class ActivityProdutos extends AppCompatActivity {
 
         try{
 
-            URL url = new URL("http://192.168.0.22:8080/produtos");
+
+            URL url = new URL(getResources().getString(R.string.url_base)+"/produtos");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
 
@@ -125,18 +126,6 @@ public class ActivityProdutos extends AppCompatActivity {
         }
 
         return null;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
 }
