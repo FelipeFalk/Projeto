@@ -1,10 +1,13 @@
 package com.example.produto;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,17 +15,15 @@ import android.widget.EditText;
 import com.example.projeto.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
-import java.util.List;
 
 public class ActivityEditar extends AppCompatActivity {
 
@@ -30,6 +31,15 @@ public class ActivityEditar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar);
+
+        Toolbar toolbar = findViewById(R.id.toolbarEditar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            Log.d("Falk", "AAAAAAAAAAAAAAAAAAAAAAA");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         Intent intent = getIntent();
         Bundle extra = intent.getExtras();
         int id = extra.getInt("id");
@@ -41,6 +51,17 @@ public class ActivityEditar extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("Falk", "AAAAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBB");
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void gerenciaEdicao(Produtos produtoSelecionado){
 
             EditText textDesc = findViewById(R.id.textDesc);
@@ -58,20 +79,11 @@ public class ActivityEditar extends AppCompatActivity {
             textPreco.setText(Double.toString(preco));
             textGtin.setText(String.valueOf(gtin));
 
-            Button botaoVoltarEditar = findViewById(R.id.botaoVoltarEditar);
-            botaoVoltarEditar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
-
             Button botaoSalvarEditar = findViewById(R.id.botaoSalvarEditar);
             botaoSalvarEditar.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view)
                 {
-                    Log.d("Falk", "Falkk");
                     produtoSelecionado.setQuantidade(Integer.parseInt(textQuantidade.getText().toString()));
                     produtoSelecionado.setGTIN(Long.parseLong((textGtin.getText().toString())));
                     produtoSelecionado.setNome(textDesc.getText().toString());
@@ -85,7 +97,7 @@ public class ActivityEditar extends AppCompatActivity {
             botaoExcluirEditar.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View view) {
-                    //exclir info
+                    deletarProduto(produtoSelecionado.getId());
                     finish();
                 }
             });
@@ -95,7 +107,6 @@ public class ActivityEditar extends AppCompatActivity {
     private void salvarProduto(Produtos produtoSelecionado){
         Gson gson = new GsonBuilder().create();
         String json = gson.toJson(produtoSelecionado);
-        Log.d("Falk", String.valueOf(json));
 
         String urlString = "http://192.168.0.22:8080/produtos/"+produtoSelecionado.getId();
         String requestBody = json;
@@ -119,6 +130,30 @@ public class ActivityEditar extends AppCompatActivity {
             }
             in.close();
 
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void deletarProduto(int id){
+        String urlString = "http://192.168.0.22:8080/produtos/"+id;
+
+        try{
+            URL url = new URL(urlString);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("DELETE");
+            con.setDoOutput(true);
+
+            int responseCode= con.getResponseCode();
+            if(responseCode == HttpURLConnection.HTTP_NO_CONTENT){
+                //Requisição bem sucedida
+            }else{
+                throw new RuntimeException("Falha na requisição DELETE. Código de resposta: "+responseCode);
+            }
+        } catch (ProtocolException e) {
+            throw new RuntimeException(e);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -154,4 +189,7 @@ public class ActivityEditar extends AppCompatActivity {
 
         return produto;
     }
+
+
+
 }

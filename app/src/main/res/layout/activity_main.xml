@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textoEntrada"
         android:text="Login"
         android:layout_width="128dp"
@@ -18,19 +18,34 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="36dp"
 
+        />-->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="167dp"
+        android:layout_height="264dp"
+        app:srcCompat="@drawable/xtoc"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="25dp"
+
         />
 
     <EditText
         android:id="@+id/textUsuario"
         android:layout_width="264dp"
         android:layout_height="58dp"
-        android:layout_marginTop="64dp"
-        android:background="#c2c2c2"
-        android:gravity="center|left"
+        android:paddingLeft="12dp"
         android:hint="Usuário"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_edittext"
+        android:textColor="@android:color/black"
+        android:gravity="center|left"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textoEntrada"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        android:layout_marginTop="0dp"
 
         />
 
@@ -38,8 +53,11 @@
         android:id="@+id/textSenha"
         android:layout_width="264dp"
         android:layout_height="58dp"
+        android:paddingLeft="12dp"
         android:hint="Senha"
-        android:background="#c2c2c2"
+        android:textSize="18sp"
+        android:background="@drawable/rounded_edittext"
+        android:textColor="@android:color/black"
         android:gravity="center|left"
         android:inputType="textPassword"
         app:layout_constraintRight_toRightOf="parent"
@@ -54,41 +72,13 @@
         android:text="Entrar"
         android:layout_width="150dp"
         android:layout_height="56dp"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/textSenha"
         android:layout_marginTop="24dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:backgroundTint="#53b6cf"
+        android:backgroundTint="@color/botaoPadrao"
 
         />
-
-    <Button
-        android:id="@+id/botaoAdministrar"
-        android:text="Administrar"
-        android:layout_width="123dp"
-        android:layout_height="56dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="50dp"
-        android:backgroundTint="#53b6cf"
-
-        />]
-
-    <Button
-        android:id="@+id/botaoGerencial"
-        android:text="Gerencial"
-        android:layout_width="123dp"
-        android:layout_height="56dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="50dp"
-        android:backgroundTint="#53b6cf"
-
-        />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

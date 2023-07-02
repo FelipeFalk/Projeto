@@ -1,16 +1,19 @@
 package com.example.produto;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.projeto.R;
 
@@ -33,6 +36,12 @@ public class ActivityProdutos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produtos);
 
+        Toolbar toolbar = findViewById(R.id.toolbarProdutos);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -49,7 +58,6 @@ public class ActivityProdutos extends AppCompatActivity {
         }
 
         criaLista();
-        sair();
 
     }
 
@@ -60,8 +68,6 @@ public class ActivityProdutos extends AppCompatActivity {
 
         if(produtos!=null){
             ArrayAdapter<Produtos> adapter = new ArrayAdapter<Produtos>(this, android.R.layout.simple_list_item_1, produtos);
-
-
             listaDeProdutos.setAdapter(adapter);
         }
 
@@ -86,16 +92,6 @@ public class ActivityProdutos extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void sair(){
-        Button botao = findViewById(R.id.botaoDeslogar);
-        botao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
 
     private List geraLista(){
@@ -130,4 +126,17 @@ public class ActivityProdutos extends AppCompatActivity {
 
         return null;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

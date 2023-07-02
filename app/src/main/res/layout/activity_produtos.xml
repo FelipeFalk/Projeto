@@ -6,7 +6,24 @@
     android:layout_height="match_parent"
     tools:context="com.example.produto.ActivityProdutos">
 
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayoutProdutos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarProdutos"
+            android:layout_width="match_parent"
+            android:layout_height="64sp"
+            android:background="@color/botaoPadrao"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="Produtos"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!--<TextView
         android:id="@+id/textoProduto"
         android:text="Produtos"
         android:layout_width="172dp"
@@ -19,15 +36,16 @@
         android:layout_marginTop="36dp"
 
         />
+        -->
 
     <ListView
         android:id="@+id/listaProdutos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/textoProduto"
-        android:layout_marginTop="120dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="56dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="36dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -40,29 +58,15 @@
         android:text="Cadastrar Produto"
         android:layout_width="150dp"
         android:layout_height="56dp"
-        app:layout_constraintTop_toBottomOf="@id/listaProdutos"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="12sp"
         android:textSize="16sp"
         android:textColor="#ffffff"
-        android:backgroundTint="#53b6cf"
+        android:backgroundTint="@color/botaoPadrao"
         android:textAllCaps="false"
          />
-
-    <Button
-        android:id="@+id/botaoDeslogar"
-        android:text="Sair"
-        android:layout_width="150dp"
-        android:layout_height="56dp"
-        app:layout_constraintTop_toBottomOf="@id/botaoCadastrarProduto"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="24dp"
-        android:textSize="16sp"
-        android:textColor="#ffffff"
-        android:backgroundTint="#53b6cf"
-        android:textAllCaps="false"
-        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
