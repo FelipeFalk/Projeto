@@ -7,15 +7,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.projeto.R;
+import com.example.adapter.AdapterProdutosPersonalizado;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,8 +21,11 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import com.example.projeto.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -64,12 +65,17 @@ public class ActivityProdutos extends AppCompatActivity {
     private void criaLista(){
         List<Produtos> produtos = geraLista();
 
+        Collections.sort(produtos, new Comparator<Produtos>() {
+            @Override
+            public int compare(Produtos produto1, Produtos produto2) {
+                return Integer.compare(produto1.getId(), produto2.getId());
+            }
+        });
+
         ListView listaDeProdutos = findViewById(R.id.listaProdutos);
 
-        if(produtos!=null){
-            ArrayAdapter<Produtos> adapter = new ArrayAdapter<Produtos>(this, android.R.layout.simple_list_item_1, produtos);
-            listaDeProdutos.setAdapter(adapter);
-        }
+        AdapterProdutosPersonalizado adapter = new AdapterProdutosPersonalizado(produtos, this);
+        listaDeProdutos.setAdapter(adapter);
 
         listaDeProdutos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

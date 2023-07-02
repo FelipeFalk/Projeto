@@ -1,16 +1,17 @@
 package com.example.produto;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.projeto.R;
 import com.google.gson.Gson;
@@ -72,12 +73,16 @@ public class ActivityEditar extends AppCompatActivity {
                 @Override
                 public void onClick(View view)
                 {
-                    produtoSelecionado.setQuantidade(Integer.parseInt(textQuantidade.getText().toString()));
-                    produtoSelecionado.setGTIN(Long.parseLong((textGtin.getText().toString())));
-                    produtoSelecionado.setNome(textDesc.getText().toString());
-                    produtoSelecionado.setPreco(Double.parseDouble(textPreco.getText().toString()));
-                    salvarProduto(produtoSelecionado);
-                    finish();
+                    if((textQuantidade.getText().toString().matches(""))||(textGtin.getText().toString().matches(""))||(textDesc.getText().toString().matches(""))||(textPreco.getText().toString().matches(""))){
+                        showUpdateRequest(view);
+                    }else {
+                        produtoSelecionado.setQuantidade(Integer.parseInt(textQuantidade.getText().toString()));
+                        produtoSelecionado.setGTIN(Long.parseLong((textGtin.getText().toString())));
+                        produtoSelecionado.setNome(textDesc.getText().toString());
+                        produtoSelecionado.setPreco(Double.parseDouble(textPreco.getText().toString()));
+                        salvarProduto(produtoSelecionado);
+                        finish();
+                    }
                 }
             });
 
@@ -90,6 +95,22 @@ public class ActivityEditar extends AppCompatActivity {
                 }
             });
 
+    }
+
+    private void showUpdateRequest(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle("Erro");
+        builder.setMessage("Necessário Preencher Todos os Valores");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void salvarProduto(Produtos produtoSelecionado){

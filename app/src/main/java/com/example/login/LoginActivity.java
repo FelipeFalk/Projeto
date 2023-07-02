@@ -1,4 +1,4 @@
-package com.example.projeto;
+package com.example.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,13 +8,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.produto.ActivityProdutos;
+import com.example.projeto.R;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         botaoEntrar();
     }
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ActivityProdutos.class));
+                startActivity(new Intent(LoginActivity.this, ActivityProdutos.class));
             }
         });
     }

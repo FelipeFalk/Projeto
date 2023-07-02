@@ -1,13 +1,16 @@
 package com.example.produto;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.projeto.R;
 import com.google.gson.Gson;
@@ -50,15 +53,34 @@ public class ActivityCadastraProduto extends AppCompatActivity {
                 EditText textPreco = findViewById(R.id.textPreco);
                 EditText textGtin = findViewById(R.id.textGtin);
 
-                produtoNovo.setQuantidade(Integer.parseInt(textQuantidade.getText().toString()));
-                produtoNovo.setGTIN(Long.parseLong((textGtin.getText().toString())));
-                produtoNovo.setNome(textDesc.getText().toString());
-                produtoNovo.setPreco(Double.parseDouble(textPreco.getText().toString()));
-
-                cadastraProduto(produtoNovo);
-                finish();
+                if((textQuantidade.getText().toString().matches(""))||(textGtin.getText().toString().matches(""))||(textDesc.getText().toString().matches(""))||(textPreco.getText().toString().matches(""))){
+                    showNewProductRequest(view);
+                }else {
+                    produtoNovo.setQuantidade(Integer.parseInt(textQuantidade.getText().toString()));
+                    produtoNovo.setGTIN(Long.parseLong((textGtin.getText().toString())));
+                    produtoNovo.setNome(textDesc.getText().toString());
+                    produtoNovo.setPreco(Double.parseDouble(textPreco.getText().toString()));
+                    cadastraProduto(produtoNovo);
+                    finish();
+                }
             }
         });
+    }
+
+    private void showNewProductRequest(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle("Erro");
+        builder.setMessage("Necessário Preencher Todos os Valores");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void cadastraProduto(Produtos produtoNovo){
