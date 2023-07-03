@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.projeto.R;
+import com.example.usuario.Usuarios;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -95,6 +96,7 @@ public class ActivityCadastraProduto extends AppCompatActivity {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Authorization", "Bearer " + Usuarios.getJwtToken());
             con.setDoOutput(true);
             OutputStream outputStream = con.getOutputStream();
             outputStream.write(requestBody.getBytes());

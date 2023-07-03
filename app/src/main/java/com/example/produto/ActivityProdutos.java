@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -26,11 +27,15 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.example.projeto.R;
+import com.example.usuario.Usuarios;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
 public class ActivityProdutos extends AppCompatActivity {
+
+    String token = Usuarios.getJwtToken();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,8 @@ public class ActivityProdutos extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
+        token = Usuarios.getJwtToken();
+
         criaLista();
 
     }
@@ -65,12 +72,15 @@ public class ActivityProdutos extends AppCompatActivity {
     private void criaLista(){
         List<Produtos> produtos = geraLista();
 
-        Collections.sort(produtos, new Comparator<Produtos>() {
-            @Override
-            public int compare(Produtos produto1, Produtos produto2) {
-                return Integer.compare(produto1.getId(), produto2.getId());
-            }
-        });
+
+        if(produtos != null) {
+            Collections.sort(produtos, new Comparator<Produtos>() {
+                @Override
+                public int compare(Produtos produto1, Produtos produto2) {
+                    return Integer.compare(produto1.getId(), produto2.getId());
+                }
+            });
+        }
 
         ListView listaDeProdutos = findViewById(R.id.listaProdutos);
 
@@ -105,10 +115,9 @@ public class ActivityProdutos extends AppCompatActivity {
         List<Produtos>  listaProdutos = null;
 
         try{
-
-
             URL url = new URL(getResources().getString(R.string.url_base)+"/produtos");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestProperty("Authorization", "Bearer " +token);
             con.setRequestMethod("GET");
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));

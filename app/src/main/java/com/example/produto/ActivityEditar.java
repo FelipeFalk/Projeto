@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.projeto.R;
+import com.example.usuario.Usuarios;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -125,6 +126,7 @@ public class ActivityEditar extends AppCompatActivity {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("PUT");
             con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Authorization", "Bearer " + Usuarios.getJwtToken());
             con.setDoOutput(true);
             OutputStream outputStream = con.getOutputStream();
             outputStream.write(requestBody.getBytes());
@@ -146,21 +148,18 @@ public class ActivityEditar extends AppCompatActivity {
         }
     }
 
-    private void deletarProduto(int id){
-        String urlString = getResources().getString(R.string.url_base)+"/produtos/"+id;
+    private void deletarProduto(int id) {
+        String urlString = getResources().getString(R.string.url_base) + "/produtos/" + id;
 
-        try{
+        try {
             URL url = new URL(urlString);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("DELETE");
+            con.setRequestProperty("Authorization", "Bearer " + Usuarios.getJwtToken());
             con.setDoOutput(true);
 
-            int responseCode= con.getResponseCode();
-            if(responseCode == HttpURLConnection.HTTP_NO_CONTENT){
-                //Requisição bem sucedida
-            }else{
-                throw new RuntimeException("Falha na requisição DELETE. Código de resposta: "+responseCode);
-            }
+            int responseCode = con.getResponseCode();
+
         } catch (ProtocolException e) {
             throw new RuntimeException(e);
         } catch (MalformedURLException e) {
@@ -170,6 +169,7 @@ public class ActivityEditar extends AppCompatActivity {
         }
     }
 
+
     private Produtos getItemById(int id){
 
         Produtos produto = new Produtos();
@@ -178,6 +178,7 @@ public class ActivityEditar extends AppCompatActivity {
             URL url = new URL(getResources().getString(R.string.url_base)+"/produtos/"+id);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", "Bearer " + Usuarios.getJwtToken());
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
