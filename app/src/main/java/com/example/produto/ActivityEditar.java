@@ -106,7 +106,7 @@ public class ActivityEditar extends AppCompatActivity {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
             }
         });
 

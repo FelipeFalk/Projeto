@@ -1,5 +1,6 @@
 package com.example.login;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -58,18 +59,35 @@ public class LoginActivity extends AppCompatActivity {
                 EditText textUser = findViewById(R.id.textUsuario);
                 EditText textPassword = findViewById(R.id.textSenha);
 
-                ArrayList<String> tokenStatus = resgataToken(textUser.getText().toString(), textPassword.getText().toString());
+                if(textUser.getText().toString().matches("")||(textPassword.getText().toString().matches(""))){
+                    showLoginRequest(view, "Necessário preencher todos os valores");
+                }else {
 
-                if(tokenStatus.get(1).equals("200")){
-                    Log.d("Falk","Falk1111");
-                    Log.d("Falk", tokenStatus.get(0));
-                    Intent i = new Intent(LoginActivity.this, ActivityProdutos.class);
-                    Usuarios.setJwtToken(tokenStatus.get(0));
-                    startActivity(i);
+                    ArrayList<String> tokenStatus = resgataToken(textUser.getText().toString(), textPassword.getText().toString());
+
+                    if (tokenStatus.get(1).equals("200")) {
+                        Intent i = new Intent(LoginActivity.this, ActivityProdutos.class);
+                        Usuarios.setJwtToken(tokenStatus.get(0));
+                        startActivity(i);
+                    }else{
+                        showLoginRequest(view, "Problema de validação do Login, tente novamente");
+                    }
                 }
-
             }
         });
+    }
+
+    private void showLoginRequest(View view, String msg){
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle("Erro");
+        builder.setMessage(msg);
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok", (dialogInterface, i) -> {
+            //Toast.makeText(getApplicationContext(), "ok", Toast.LENGTH_LONG).show();
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private ArrayList<String> resgataToken(String user, String pass) {
