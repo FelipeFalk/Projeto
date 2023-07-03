@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">Projeto</string>
-    <string name="ip_address">192.168.0.22</string>
-    <string name="port_number">8080</string>
     <string name="url_base">http://192.168.0.22:8080</string>
 </resources>
